@@ -15,13 +15,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * A component controls a portion of the screen—a view—through its associated template.
  */
 var core_1 = require('@angular/core');
+var Hero = (function () {
+    function Hero() {
+    }
+    return Hero;
+}());
+exports.Hero = Hero;
 var AppComponent = (function () {
     function AppComponent() {
+        this.title = 'Tour of Heroes';
+        this.hero = {
+            id: 1,
+            name: 'Windstorm'
+        };
     }
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: '<h1>My First Angular App</h1>'
+            template: "\n        <h1>{{title}}</h1>\n        <h2>{{hero.name}} details!</h2>\n        <!-- The double curly braces tell our app to read the title and hero properties from-->\n        <!-- the component and render them. This is the \"interpolation\" form of one-way data binding.-->\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <!-- <input value=\"{{hero.name}}\" placeholder=\"name\">-->\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

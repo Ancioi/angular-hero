@@ -68,3 +68,12 @@ Step 4: Define the web page that hosts the application
 In the project root folder, create an **index.html** containing the stub in html of the web page.
 
 **Add some style:** Styles aren't essential, but they're nice, and index.html assumes that you have a stylesheet called styles.css.
+
+Tour of Heroes
+--------------
+
+The project is to build an app to help a staffing agency manage its stable of heroes.
+
+What we do build will have many of the features we expect to find in a full-blown, data-driven application: acquiring and displaying a list of heroes, editing a selected hero's detail, and navigating among different views of heroic data.
+
+The Tour of Heroes covers the core fundamentals of Angular. We’ll use built-in directives to show/hide elements and display lists of hero data. We’ll create a component to display hero details and another to show an array of heroes. We'll use one-way data binding for read-only data. We'll add editable fields to update a model with two-way data binding. We'll bind component methods to user events like key strokes and clicks. We’ll learn to select a hero from a master list and edit that hero in the details view. We'll format data with pipes. We'll create a shared service to assemble our heroes. And we'll use routing to navigate among different views and their components. 
