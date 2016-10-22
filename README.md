@@ -77,3 +77,49 @@ The project is to build an app to help a staffing agency manage its stable of he
 What we do build will have many of the features we expect to find in a full-blown, data-driven application: acquiring and displaying a list of heroes, editing a selected hero's detail, and navigating among different views of heroic data.
 
 The Tour of Heroes covers the core fundamentals of Angular. We’ll use built-in directives to show/hide elements and display lists of hero data. We’ll create a component to display hero details and another to show an array of heroes. We'll use one-way data binding for read-only data. We'll add editable fields to update a model with two-way data binding. We'll bind component methods to user events like key strokes and clicks. We’ll learn to select a hero from a master list and edit that hero in the details view. We'll format data with pipes. We'll create a shared service to assemble our heroes. And we'll use routing to navigate among different views and their components. 
+
+Listing with ngFor
+------------------
+
+One of the many feature covered in this application is displaying a list of objects. In particular here we want to list heroes. To achieve that we use the built-in command **ngFor** in our app component class. 
+
+```
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+  </li>
+</ul>
+```
+
+The (*) prefix to ngFor indicates that the list element and its children constitute a master template.
+
+The ngFor directive iterates over the heroes array returned by the AppComponent.heroes property and stamps out instances of this template.
+
+The quoted text assigned to ngFor means “take each hero in the heroes array, store it in the local hero variable, and make it available to the corresponding template instance”.
+
+The let keyword before "hero" identifies hero as a template input variable. We can reference this variable within the template to access a hero’s properties.
+
+Selecting a Hero
+----------------
+
+We have a list of heroes and we have a single hero displayed in our app. The list and the single hero are not connected in any way. We want the user to select a hero from our list, and have the selected hero appear in the details view. This UI pattern is widely known as "master-detail". In our case, the master is the heroes list and the detail is the selected hero.
+
+Let’s connect the master to the detail through a selectedHero component property bound to a click event.
+
+```
+<li *ngFor="let hero of heroes" (click)="onSelect(hero)">
+  <span class="badge">{{hero.id}}</span> {{hero.name}}
+</li>
+```
+
+Focus on the event binding
+
+```
+(click)="onSelect(hero)"
+```
+
+The parenthesis identify the element’s click event as the target. The expression to the right of the equal sign calls the AppComponent method, onSelect(), passing the template input variable hero as an argument. That’s the same hero variable we defined previously in the ngFor.
+
+**REMARK**
+**ngIf** and **ngFor** are called “structural directives” because they can change the structure of portions of the DOM. In other words, they give structure to the way Angular displays content in the DOM.
