@@ -4,28 +4,12 @@
  *
  * A component controls a portion of the screen—a view—through its associated template.
  */
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { Hero } from "./hero";
+import { HeroDetailComponent } from './hero-detail.component'
+import { HEROES } from "./mock-heroes";
+import {HeroService} from "./hero.service";
 
-export class Hero {
-    id: number;
-    name: string;
-}
-
-/* Mock list of heroes. In theory this should be provided by
-   a service.
- */
-const HEROES: Hero[] = [
-    { id: 11, name: 'Mr. Nice' },
-    { id: 12, name: 'Narco' },
-    { id: 13, name: 'Bombasto' },
-    { id: 14, name: 'Celeritas' },
-    { id: 15, name: 'Magneta' },
-    { id: 16, name: 'RubberMan' },
-    { id: 17, name: 'Dynama' },
-    { id: 18, name: 'Dr IQ' },
-    { id: 19, name: 'Magma' },
-    { id: 20, name: 'Tornado' }
-];
 
 @Component({
     selector: 'my-app',
@@ -40,17 +24,8 @@ const HEROES: Hero[] = [
             <span class="badge">{{hero.id}}</span> {{hero.name}}
           </li>
         </ul>
-        <div *ngIf="selectedHero">
-            <h2>{{selectedHero.name}} details!</h2>
-            <!-- The double curly braces tell our app to read the title and hero properties from-->
-            <!-- the component and render them. This is the "interpolation" form of one-way data binding.-->
-            <div><label>id: </label>{{selectedHero.id}}</div>
-            <div>
-                <label>name: </label>
-                <!-- <input value="{{hero.name}}" placeholder="name">-->
-                <input [(ngModel)]="selectedHero.name" placeholder="name">
-            </div>
-        </div>
+        <!--hero property is the target of a property binding — it's in square brackets to the left of the (=)-->
+        <my-hero-detail [hero] = selectedHero></my-hero-detail>
   `,
    styles: [`
         .selected {
@@ -99,17 +74,26 @@ const HEROES: Hero[] = [
             height: 1.8em;
             margin-right: .8em;
             border-radius: 4px 0 0 4px;
-        }`]
+        }`],
+   providers: [HeroService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+    ngOnInit(): void {
+        this.getHeroes();
+    }
+
     title = 'Tour of Heroes';
-    // hero: Hero = {
-    //     id: 1,
-    //     name: 'Windstorm'
-    // };
-    heroes = HEROES;
+    heroes: Hero[];
     selectedHero: Hero;
+
     onSelect(hero: Hero): void {
         this.selectedHero = hero;
+    }
+
+    constructor(private heroService: HeroService) { }
+
+    getHeroes(): void {
+        this.heroService.getHeroes().then(heroes => this.heroes = heroes);
     }
 }

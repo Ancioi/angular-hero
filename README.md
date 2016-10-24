@@ -123,3 +123,55 @@ The parenthesis identify the element’s click event as the target. The expressi
 
 **REMARK**
 **ngIf** and **ngFor** are called “structural directives” because they can change the structure of portions of the DOM. In other words, they give structure to the way Angular displays content in the DOM.
+
+Single Responsibility Principle
+-------------------------------
+
+The Single Responsibility Principle [(SRP)](https://8thlight.com/blog/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) states that each software module should have one and only one reason to change.
+
+This is one of the main principle in software architecture and it focuses on modular composition of the code. 
+
+Naming Convention
+-----------------
+
+We like to identify at a glance which classes are components and which files contain components.
+
+Notice that we have an AppComponent in a file named app.component.ts and our new HeroDetailComponent is in a file named hero-detail.component.ts. All of our component names end in "Component". All of our component file names end in ".component".
+
+We spell our file names in lower dash case (AKA kebab-case) so we don't worry about case sensitivity on the server or in source control.
+
+Services
+--------
+
+Multiple components will need access to hero data and we don't want to copy and paste the same code over and over. Instead, we'll create a single reusable data service and learn to inject it in the components that need it.
+
+Refactoring data access to a separate service keeps the component lean and focused on supporting the view. It also makes it easier to unit test the component with a mock service.
+
+The consumer of our service doesn't know how the service gets the data. Our HeroService could get Hero data from anywhere. It could get the data from a web service or local storage or from a mock data source.
+
+That's the beauty of removing data access from the component. We can change our minds about the implementation as often as we like, for whatever reason, without touching any of the components that need heroes.
+
+Async Services and Promises
+---------------------------
+
+Someday we're going to get heroes from a remote server. We don’t call http yet, but we aspire to in later chapters.
+
+When we do, we'll have to wait for the server to respond and we won't be able to block the UI while we wait, even if we want to (which we shouldn't) because the browser won't block.
+
+We'll have to use some kind of asynchronous technique and that will change the signature of our getHeroes method.
+
+We'll use Promises. The Hero Service makes a Promise
+
+A Promise is ... well it's a promise to call us back later when the results are ready. We ask an asynchronous service to do some work and give it a callback function. It does that work (somewhere) and eventually it calls our function with the results of the work or an error.
+
+**Act on the Promise:** As a result of our change to HeroService, we're now setting this.heroes to a Promise rather than an array of heroes.
+                        
+We have to change our implementation to act on the Promise when it resolves. When the Promise resolves successfully, then we will have heroes to display.
+                        
+We pass our callback function as an argument to the Promise's **then** method:
+
+```
+getHeroes(): void {
+  this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+}
+```
