@@ -3,3 +3,5 @@ node_modules/
 typings/
 Angular-Hero.iml
 /.project
+*.js
+*.js.map
