@@ -175,3 +175,42 @@ getHeroes(): void {
   this.heroService.getHeroes().then(heroes => this.heroes = heroes);
 }
 ```
+
+Routing and Navigation
+----------------------
+
+Routing is another name for navigation. The router is the mechanism for navigating from view to view.
+
+For code maintenance the navigation is usually encoded in the App Component that becomes a shell for this purpose. All the other components are moved out and separated from the App one.
+
+The Angular router is an external, optional Angular **NgModule** called **RouterModule**. The router is a combination of multiple provided services (**RouterModule**), multiple directives (**RouterOutlet**, **RouterLink**, **RouterLinkActive**), and a configuration (**Routes**). We'll configure our routes first.
+
+Routes tell the router which views to display when a user clicks a link or pastes a URL into the browser address bar. The Routes are an array of route definitions. This route definition has the following parts:
+
+- **path:** the router matches this route's path to the URL in the browser address bar (heroes).
+- **component:** the component that the router should create when navigating to this route (HeroesComponent).
+
+We use the ```forRoot``` method because we're providing a configured ```router``` at the root of the application. The ```forRoot``` method gives us the ```Router``` service providers and directives needed for routing, and performs the initial navigation based on the current browser URL.
+
+
+Add the base tag
+----------------
+
+Open index.html and add ```<base href="/">``` at the top of the ```<head>``` section.
+
+Refactor routes to a Routing Module
+-----------------------------------
+
+Almost 20 lines of ```AppModule``` are devoted to configuring four ```routes```. Most application have many more ```routes``` and they add guard services to protect against unwanted or unauthorized navigations. Routing considerations could quickly dominate this module and obscure its primary purpose which is to establish key facts about the entire app for the Angular compiler.
+
+We should refactor the routing configuration into its own class. What kind of class? The current ```RouterModule.forRoot()``` produces an Angular ```ModuleWithProviders``` which suggests that a class dedicated to routing should be some kind of module. It should be a ```Routing Module```.
+
+By convention the name of a ```Routing Module``` contains the word "Routing" and aligns with the name of the module that declares the components navigated to.
+
+Noteworthy points, typical of Routing Modules:
+
+- Pull the ```routes``` into a variable. You might export it in future and it clarifies the ```Routing Module``` pattern.
+- Add ```RouterModule.forRoot(routes)``` to imports.
+- Add ```RouterModule``` to exports so that the components in the companion module have access to ```Router``` declarables such as ```RouterLink``` and ```RouterOutlet```.
+- No declarations! Declarations are the responsibility of the companion module.
+- Add module providers for guard services if you have them; there are none in this example.

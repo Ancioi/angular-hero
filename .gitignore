@@ -1,7 +1,7 @@
 .idea/
 node_modules/
 typings/
-Angular-Hero.iml
+angular-hero.iml
 /.project
 *.js
 *.js.map
