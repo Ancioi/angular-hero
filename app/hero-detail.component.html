@@ -1,13 +1,11 @@
-<!DOCTYPE html>
 <div *ngIf="hero">
     <h2>{{hero.name}} details!</h2>
-    <!-- The double curly braces tell our app to read the title and hero properties from-->
-    <!-- the component and render them. This is the "interpolation" form of one-way data binding.-->
-    <div><label>id: </label>{{hero.id}}</div>
+    <div>
+        <label>id: </label>{{hero.id}}</div>
     <div>
         <label>name: </label>
-        <!-- <input value="{{hero.name}}" placeholder="name">-->
-        <input [(ngModel)]="hero.name" placeholder="name">
+        <input [(ngModel)]="hero.name" placeholder="name" />
     </div>
     <button (click)="goBack()">Back</button>
+    <button (click)="save()">Save</button>
 </div>

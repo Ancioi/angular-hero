@@ -214,3 +214,10 @@ Noteworthy points, typical of Routing Modules:
 - Add ```RouterModule``` to exports so that the components in the companion module have access to ```Router``` declarables such as ```RouterLink``` and ```RouterOutlet```.
 - No declarations! Declarations are the responsibility of the companion module.
 - Add module providers for guard services if you have them; there are none in this example.
+
+Providing HTTP Services
+-----------------------
+
+The ```HttpModule``` is not a core Angular module. It's Angular's optional approach to web access and it exists as a separate add-on module called ```@angular/http```, shipped in a separate script file as part of the Angular npm package.
+
+However we're ready to import from ```@angular/http``` because **systemjs.config** configured SystemJS to load that library when we need it. Our app will depend upon the Angular http service which itself depends upon other supporting services. The ```HttpModule``` from ```@angular/http``` library holds providers for a complete set of HTTP services.
